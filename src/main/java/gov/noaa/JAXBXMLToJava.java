@@ -1,10 +1,12 @@
 package gov.noaa;
 
+import org.apache.logging.log4j.LogManager;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import java.io.File;
 import java.io.StringReader;
+
 
 public class JAXBXMLToJava {
     /**
@@ -13,6 +15,8 @@ public class JAXBXMLToJava {
      * @return the latLon value from the unmarshalled XML object
      */
     public static String parse(String parseMe) {
+
+        final org.apache.logging.log4j.Logger logger = LogManager.getLogger(JAXBXMLToJava.class);
 
         try {
 
@@ -25,9 +29,9 @@ public class JAXBXMLToJava {
             return(latLon.getLatLonList());
 
         } catch (JAXBException exception) {
-            System.out.println("There was a problem..." + exception.getMessage());
+            logger.error("There was a problem..." + exception.getMessage());
         } catch (Exception ioe) {
-            System.out.println("There was a problem..." + ioe.getMessage());
+            logger.error("There was a problem..." + ioe.getMessage());
         }
     return "";
     }
